@@ -492,6 +492,18 @@
   white-space: nowrap;
 }
 
+.raceActions {
+  display: flex;
+  gap: var(--space-xs);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.raceItem:hover .raceActions {
+  opacity: 1;
+}
+
+.raceEdit,
 .raceDelete {
   width: 32px;
   height: 32px;
@@ -504,11 +516,11 @@
   color: var(--text-muted);
   cursor: pointer;
   transition: all var(--transition-fast);
-  opacity: 0;
 }
 
-.raceItem:hover .raceDelete {
-  opacity: 1;
+.raceEdit:hover {
+  background: rgba(45, 90, 69, 0.1);
+  color: var(--turf);
 }
 
 .raceDelete:hover {

@@ -62,6 +62,19 @@ export function useRaces() {
     return newRace;
   }, []);
 
+  const updateRace = useCallback((id, raceData) => {
+    setRaces(prev => prev.map(race => {
+      if (race.id !== id) return race;
+      const conditionKey = generateConditionKey(raceData);
+      return {
+        ...race,
+        ...raceData,
+        conditionKey,
+        id // preserve original id
+      };
+    }));
+  }, []);
+
   const deleteRace = useCallback((id) => {
     setRaces(prev => prev.filter(race => race.id !== id));
   }, []);
@@ -256,6 +269,7 @@ export function useRaces() {
   return {
     races,
     addRace,
+    updateRace,
     deleteRace,
     clearAllRaces,
     importRaces,

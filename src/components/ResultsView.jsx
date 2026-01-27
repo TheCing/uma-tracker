@@ -9,7 +9,8 @@ export function ResultsView({
   currentCondition,
   conditionFilter,
   onConditionChange,
-  onDeleteRace, 
+  onDeleteRace,
+  onEditRace,
   onClearAll 
 }) {
   const [charactersExpanded, setCharactersExpanded] = useState(false);
@@ -308,13 +309,22 @@ export function ResultsView({
                     )}
                   </div>
                   <span class={styles.raceDate}>{formatDate(race.timestamp)}</span>
-                  <button 
-                    class={styles.raceDelete} 
-                    onClick={() => onDeleteRace(race.id)}
-                    title="Delete"
-                  >
-                    🗑️
-                  </button>
+                  <div class={styles.raceActions}>
+                    <button 
+                      class={styles.raceEdit} 
+                      onClick={() => onEditRace(race)}
+                      title="Edit"
+                    >
+                      ✏️
+                    </button>
+                    <button 
+                      class={styles.raceDelete} 
+                      onClick={() => onDeleteRace(race.id)}
+                      title="Delete"
+                    >
+                      🗑️
+                    </button>
+                  </div>
                 </div>
               );
             })}

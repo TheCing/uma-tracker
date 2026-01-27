@@ -5,6 +5,7 @@ import { OnboardingView } from './components/OnboardingView';
 import { UploadView } from './components/UploadView';
 import { ResultsView } from './components/ResultsView';
 import { SettingsView } from './components/SettingsView';
+import { EditRaceModal } from './components/EditRaceModal';
 import { ToastContainer } from './components/Toast';
 import { useRaces } from './hooks/useRaces';
 import { useToast } from './hooks/useToast';
@@ -14,10 +15,13 @@ import { analyzeRaceScreenshot, getOrdinalSuffix } from './utils/gemini';
 export function App() {
   const [currentView, setCurrentView] = useState('upload');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [pendingRace, setPendingRace] = useState(null); // Race being reviewed before save
+  const [editingRace, setEditingRace] = useState(null); // Existing race being edited
   
   const { 
     races, 
-    addRace, 
+    addRace,
+    updateRace,
     deleteRace, 
     clearAllRaces, 
     importRaces, 
@@ -48,30 +52,9 @@ export function App() {
     try {
       const result = await analyzeRaceScreenshot(apiKey, file);
       
-      addRace(result);
-
-      // Build toast message
-      const playerResults = result.playerResults || [];
-      const notPlaced = result.playerUmasNotPlaced || 0;
+      // Show the review modal instead of saving immediately
+      setPendingRace(result);
       
-      let positionText = '';
-      if (playerResults.length > 0) {
-        const positions = playerResults
-          .map(r => `${r.position}${getOrdinalSuffix(r.position)}`)
-          .join(', ');
-        positionText = `Placed: ${positions}`;
-        if (notPlaced > 0) {
-          positionText += ` | ${notPlaced} did not place`;
-        }
-      } else if (notPlaced > 0) {
-        positionText = `${notPlaced} umas did not place in top positions`;
-      } else {
-        positionText = 'Race recorded';
-      }
-
-      showToast('Race Analyzed!', positionText, 'success');
-      
-      setCurrentView('results');
       return true;
     } catch (error) {
       console.error('Analysis error:', error);
@@ -80,7 +63,53 @@ export function App() {
     } finally {
       setIsProcessing(false);
     }
-  }, [apiKey, addRace, showToast]);
+  }, [apiKey, showToast]);
+
+  const handleSavePendingRace = useCallback((raceData) => {
+    addRace(raceData);
+    
+    // Build toast message
+    const playerResults = raceData.playerResults || [];
+    const notPlaced = raceData.playerUmasNotPlaced || 0;
+    
+    let positionText = '';
+    if (playerResults.length > 0) {
+      const positions = playerResults
+        .map(r => `${r.position}${getOrdinalSuffix(r.position)}`)
+        .join(', ');
+      positionText = `Placed: ${positions}`;
+      if (notPlaced > 0) {
+        positionText += ` | ${notPlaced} did not place`;
+      }
+    } else if (notPlaced > 0) {
+      positionText = `${notPlaced} umas did not place in top positions`;
+    } else {
+      positionText = 'Race recorded';
+    }
+
+    showToast('Race Saved!', positionText, 'success');
+    setPendingRace(null);
+    setCurrentView('results');
+  }, [addRace, showToast]);
+
+  const handleCancelPendingRace = useCallback(() => {
+    setPendingRace(null);
+    showToast('Cancelled', 'Race was not saved.', 'info');
+  }, [showToast]);
+
+  const handleEditRace = useCallback((race) => {
+    setEditingRace(race);
+  }, []);
+
+  const handleSaveEditedRace = useCallback((raceData) => {
+    updateRace(raceData.id, raceData);
+    showToast('Race Updated', 'Your changes have been saved.', 'success');
+    setEditingRace(null);
+  }, [updateRace, showToast]);
+
+  const handleCancelEditRace = useCallback(() => {
+    setEditingRace(null);
+  }, []);
 
   const handleClearAll = useCallback(() => {
     clearAllRaces();
@@ -140,6 +169,7 @@ export function App() {
             conditionFilter={conditionFilter}
             onConditionChange={setConditionFilter}
             onDeleteRace={deleteRace}
+            onEditRace={handleEditRace}
             onClearAll={handleClearAll}
           />
         )}
@@ -154,6 +184,26 @@ export function App() {
           />
         )}
       </main>
+
+      {/* Review Modal - shown after AI analysis */}
+      {pendingRace && (
+        <EditRaceModal
+          race={pendingRace}
+          isNew={true}
+          onSave={handleSavePendingRace}
+          onCancel={handleCancelPendingRace}
+        />
+      )}
+
+      {/* Edit Modal - shown when editing existing race */}
+      {editingRace && (
+        <EditRaceModal
+          race={editingRace}
+          isNew={false}
+          onSave={handleSaveEditedRace}
+          onCancel={handleCancelEditRace}
+        />
+      )}
 
       <ToastContainer toasts={toasts} />
     </div>
