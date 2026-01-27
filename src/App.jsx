@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'preact/hooks';
 import { Navigation } from './components/Navigation';
 import { Background } from './components/Background';
+import { OnboardingView } from './components/OnboardingView';
 import { UploadView } from './components/UploadView';
 import { ResultsView } from './components/ResultsView';
 import { SettingsView } from './components/SettingsView';
@@ -95,6 +96,22 @@ export function App() {
   const currentCondition = conditionFilter === 'all' 
     ? null 
     : conditions.find(c => c.key === conditionFilter);
+
+  const handleOnboardingComplete = useCallback((key) => {
+    setApiKey(key);
+    showToast('Welcome!', 'Your API key has been saved. Start uploading race screenshots!', 'success');
+  }, [setApiKey, showToast]);
+
+  // Show onboarding if no API key is set
+  if (!apiKey) {
+    return (
+      <div class="app-container">
+        <Background />
+        <OnboardingView onComplete={handleOnboardingComplete} />
+        <ToastContainer toasts={toasts} />
+      </div>
+    );
+  }
 
   return (
     <div class="app-container">
