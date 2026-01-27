@@ -1,4 +1,5 @@
 import { useState, useRef } from 'preact/hooks';
+import styles from './SettingsView.module.css';
 
 export function SettingsView({ 
   apiKey, 
@@ -71,23 +72,23 @@ export function SettingsView({
         <p class="page-subtitle">Configure your tracker preferences</p>
       </div>
 
-      <div class="settings-card">
+      <div class={styles.settingsCard}>
         {/* API Key */}
-        <div class="setting-group">
-          <label class="setting-label">
-            <span class="setting-icon">🔑</span>
+        <div class={styles.settingGroup}>
+          <label class={styles.settingLabel}>
+            <span class={styles.settingIcon}>🔑</span>
             <span>Google AI API Key</span>
           </label>
-          <p class="setting-description">
+          <p class={styles.settingDescription}>
             Required for OCR analysis. Get your key from{' '}
             <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">
               Google AI Studio
             </a>
           </p>
-          <div class="setting-input-group">
+          <div class={styles.settingInputGroup}>
             <input
               type={showKey ? 'text' : 'password'}
-              class="setting-input"
+              class={styles.settingInput}
               placeholder="Enter your API key"
               value={keyInput}
               onInput={(e) => setKeyInput(e.target.value)}
@@ -104,38 +105,38 @@ export function SettingsView({
           </button>
         </div>
 
-        <div class="setting-divider"></div>
+        <div class={styles.settingDivider}></div>
 
         {/* How It Works */}
-        <div class="setting-group">
-          <label class="setting-label">
-            <span class="setting-icon">ℹ️</span>
+        <div class={styles.settingGroup}>
+          <label class={styles.settingLabel}>
+            <span class={styles.settingIcon}>ℹ️</span>
             <span>How It Works</span>
           </label>
-          <p class="setting-description">
+          <p class={styles.settingDescription}>
             Upload screenshots of your race results. The app automatically detects your umas 
             by their <strong>gold/yellow background</strong> in the results list. 
             Each race has 3 of your umas competing against 6 others (9 total entrants).
           </p>
-          <p class="setting-description">
+          <p class={styles.settingDescription}>
             Results are automatically grouped by <strong>race conditions</strong> (race name, distance, surface, etc.) 
             so you can track performance for specific Champions Meet races like the Capricorn Cup.
           </p>
-          <p class="setting-description">
+          <p class={styles.settingDescription}>
             Umas that don't appear in the visible top positions are marked as "Not Placed" (NP).
           </p>
         </div>
 
-        <div class="setting-divider"></div>
+        <div class={styles.settingDivider}></div>
 
         {/* Data Management */}
-        <div class="setting-group">
-          <label class="setting-label">
-            <span class="setting-icon">💾</span>
+        <div class={styles.settingGroup}>
+          <label class={styles.settingLabel}>
+            <span class={styles.settingIcon}>💾</span>
             <span>Data Management</span>
           </label>
-          <p class="setting-description">Export or import your race data</p>
-          <div class="setting-button-group">
+          <p class={styles.settingDescription}>Export or import your race data</p>
+          <div class={styles.settingButtonGroup}>
             <button class="btn btn-secondary" onClick={handleExport}>
               Export Data
             </button>

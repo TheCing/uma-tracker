@@ -1,3 +1,5 @@
+import styles from './Navigation.module.css';
+
 export function Navigation({ currentView, onViewChange }) {
   const navItems = [
     { id: 'upload', icon: '📷', label: 'Upload' },
@@ -6,21 +8,21 @@ export function Navigation({ currentView, onViewChange }) {
   ];
 
   return (
-    <nav class="main-nav">
-      <div class="nav-brand">
-        <span class="brand-icon">🏆</span>
-        <span class="brand-text">
-          Uma<span class="brand-accent">Tracker</span>
+    <nav class={styles.nav}>
+      <div class={styles.brand}>
+        <span class={styles.brandIcon}>🏆</span>
+        <span class={styles.brandText}>
+          Uma<span class={styles.brandAccent}>Tracker</span>
         </span>
       </div>
-      <div class="nav-links">
+      <div class={styles.links}>
         {navItems.map(item => (
           <button
             key={item.id}
-            class={`nav-btn ${currentView === item.id ? 'active' : ''}`}
+            class={`${styles.navBtn} ${currentView === item.id ? styles.active : ''}`}
             onClick={() => onViewChange(item.id)}
           >
-            <span class="nav-icon">{item.icon}</span>
+            <span class={styles.navIcon}>{item.icon}</span>
             <span>{item.label}</span>
           </button>
         ))}

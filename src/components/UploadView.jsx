@@ -1,4 +1,5 @@
 import { useState, useRef } from 'preact/hooks';
+import styles from './UploadView.module.css';
 
 export function UploadView({ onAnalyze, isProcessing }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -67,24 +68,24 @@ export function UploadView({ onAnalyze, isProcessing }) {
       {/* Upload Zone */}
       {!selectedFile && !isProcessing && (
         <div 
-          class={`upload-zone ${isDragOver ? 'drag-over' : ''}`}
+          class={`${styles.uploadZone} ${isDragOver ? styles.dragOver : ''}`}
           onClick={() => fileInputRef.current?.click()}
           onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
           onDragLeave={(e) => { e.preventDefault(); setIsDragOver(false); }}
           onDrop={handleDrop}
         >
-          <div class="upload-zone-inner">
-            <div class="upload-icon">
+          <div class={styles.uploadZoneInner}>
+            <div class={styles.uploadIcon}>
               <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M32 8L12 28H24V44H40V28H52L32 8Z" fill="currentColor"/>
                 <path d="M8 52V56H56V52H8Z" fill="currentColor"/>
               </svg>
             </div>
-            <div class="upload-text">
-              <span class="upload-primary">Drop your screenshot here</span>
-              <span class="upload-secondary">or click to browse files</span>
+            <div class={styles.uploadText}>
+              <span class={styles.uploadPrimary}>Drop your screenshot here</span>
+              <span class={styles.uploadSecondary}>or click to browse files</span>
             </div>
-            <div class="upload-formats">PNG, JPG, WEBP supported</div>
+            <div class={styles.uploadFormats}>PNG, JPG, WEBP supported</div>
           </div>
           <input 
             ref={fileInputRef}
@@ -98,16 +99,16 @@ export function UploadView({ onAnalyze, isProcessing }) {
 
       {/* Preview Area */}
       {selectedFile && !isProcessing && (
-        <div class="preview-area">
-          <div class="preview-card">
-            <div class="preview-header">
-              <span class="preview-badge">Preview</span>
-              <button class="preview-clear" onClick={clearPreview}>✕</button>
+        <div class={styles.previewArea}>
+          <div class={styles.previewCard}>
+            <div class={styles.previewHeader}>
+              <span class={styles.previewBadge}>Preview</span>
+              <button class={styles.previewClear} onClick={clearPreview}>✕</button>
             </div>
-            <div class="preview-image-container">
+            <div class={styles.previewImageContainer}>
               <img src={previewUrl} alt="Race screenshot preview" />
             </div>
-            <div class="preview-actions">
+            <div class={styles.previewActions}>
               <button 
                 class="btn btn-secondary" 
                 onClick={() => fileInputRef.current?.click()}
@@ -125,15 +126,15 @@ export function UploadView({ onAnalyze, isProcessing }) {
 
       {/* Processing State */}
       {isProcessing && (
-        <div class="processing-state">
-          <div class="processing-card">
-            <div class="processing-animation">
-              <div class="horse-runner">🏇</div>
-              <div class="track-line"></div>
+        <div class={styles.processingState}>
+          <div class={styles.processingCard}>
+            <div class={styles.processingAnimation}>
+              <div class={styles.horseRunner}>🏇</div>
+              <div class={styles.trackLine}></div>
             </div>
-            <div class="processing-text">
-              <span class="processing-title">Analyzing Race Results</span>
-              <span class="processing-subtitle">Reading screenshot data...</span>
+            <div class={styles.processingText}>
+              <span class={styles.processingTitle}>Analyzing Race Results</span>
+              <span class={styles.processingSubtitle}>Reading screenshot data...</span>
             </div>
           </div>
         </div>

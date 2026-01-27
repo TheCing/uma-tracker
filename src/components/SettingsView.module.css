@@ -1,0 +1,108 @@
+/* Settings View Component Styles */
+
+.settingsCard {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.settingGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.settingLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.settingIcon {
+  font-size: 1.25rem;
+}
+
+.settingDescription {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.settingDescription a {
+  color: var(--turf);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.settingDescription a:hover {
+  text-decoration: underline;
+}
+
+.settingInputGroup {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.settingInput {
+  flex: 1;
+  padding: var(--space-md);
+  border: 2px solid var(--cream-dark);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+}
+
+.settingInput:focus {
+  outline: none;
+  border-color: var(--turf);
+  box-shadow: 0 0 0 3px rgba(45, 90, 69, 0.1);
+}
+
+.settingSelect {
+  width: 100%;
+  padding: var(--space-md);
+  border: 2px solid var(--cream-dark);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.settingSelect:focus {
+  outline: none;
+  border-color: var(--turf);
+}
+
+.settingButtonGroup {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.settingHint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: var(--space-xs);
+}
+
+.settingDivider {
+  height: 1px;
+  background: var(--cream-dark);
+  margin: var(--space-lg) 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .settingButtonGroup {
+    flex-direction: column;
+  }
+}

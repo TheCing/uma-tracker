@@ -1,4 +1,5 @@
 import { useState } from 'preact/hooks';
+import styles from './ResultsView.module.css';
 
 export function ResultsView({ 
   races, 
@@ -61,11 +62,11 @@ export function ResultsView({
     <section class="view active">
       {/* Condition Filter */}
       {conditions.length > 0 && (
-        <div class="condition-filter-section">
-          <div class="condition-filter-header">
-            <span class="condition-filter-label">Race Conditions</span>
+        <div class={styles.conditionFilterSection}>
+          <div class={styles.conditionFilterHeader}>
+            <span class={styles.conditionFilterLabel}>Race Conditions</span>
             <select 
-              class="condition-select"
+              class={styles.conditionSelect}
               value={conditionFilter}
               onChange={(e) => onConditionChange(e.target.value)}
             >
@@ -79,16 +80,16 @@ export function ResultsView({
           </div>
           
           {currentCondition && (
-            <div class="condition-info">
-              <div class="condition-details">
-                <span class="condition-name">{currentCondition.raceName}</span>
-                <span class="condition-specs">
+            <div class={styles.conditionInfo}>
+              <div class={styles.conditionDetails}>
+                <span class={styles.conditionName}>{currentCondition.raceName}</span>
+                <span class={styles.conditionSpecs}>
                   {[currentCondition.raceGrade, currentCondition.distance, currentCondition.surface, currentCondition.condition]
                     .filter(Boolean)
                     .join(' • ')}
                 </span>
                 {currentCondition.venue && (
-                  <span class="condition-venue">@ {currentCondition.venue}</span>
+                  <span class={styles.conditionVenue}>@ {currentCondition.venue}</span>
                 )}
               </div>
             </div>
@@ -97,68 +98,68 @@ export function ResultsView({
       )}
 
       {/* Stats Grid */}
-      <div class="stats-grid">
-        <div class="stat-card stat-total">
-          <div class="stat-icon">🏁</div>
-          <div class="stat-content">
-            <span class="stat-value">{totalRaces}</span>
-            <span class="stat-label">Races</span>
+      <div class={styles.statsGrid}>
+        <div class={`${styles.statCard} ${styles.statTotal}`}>
+          <div class={styles.statIcon}>🏁</div>
+          <div class={styles.statContent}>
+            <span class={styles.statValue}>{totalRaces}</span>
+            <span class={styles.statLabel}>Races</span>
           </div>
         </div>
-        <div class="stat-card stat-wins">
-          <div class="stat-icon">🥇</div>
-          <div class="stat-content">
-            <span class="stat-value">{wins}</span>
-            <span class="stat-label">1st Place</span>
+        <div class={`${styles.statCard} ${styles.statWins}`}>
+          <div class={styles.statIcon}>🥇</div>
+          <div class={styles.statContent}>
+            <span class={styles.statValue}>{wins}</span>
+            <span class={styles.statLabel}>1st Place</span>
           </div>
         </div>
-        <div class="stat-card stat-podium">
-          <div class="stat-icon">🏆</div>
-          <div class="stat-content">
-            <span class="stat-value">{podium}</span>
-            <span class="stat-label">Top 3</span>
+        <div class={`${styles.statCard} ${styles.statPodium}`}>
+          <div class={styles.statIcon}>🏆</div>
+          <div class={styles.statContent}>
+            <span class={styles.statValue}>{podium}</span>
+            <span class={styles.statLabel}>Top 3</span>
           </div>
         </div>
-        <div class="stat-card stat-rate">
-          <div class="stat-icon">📈</div>
-          <div class="stat-content">
-            <span class="stat-value">{winRate}%</span>
-            <span class="stat-label">Win Rate</span>
+        <div class={`${styles.statCard} ${styles.statRate}`}>
+          <div class={styles.statIcon}>📈</div>
+          <div class={styles.statContent}>
+            <span class={styles.statValue}>{winRate}%</span>
+            <span class={styles.statLabel}>Win Rate</span>
           </div>
         </div>
       </div>
 
       {/* Position Distribution */}
-      <div class="distribution-section">
+      <div class={styles.distributionSection}>
         <h2 class="section-title">Position Distribution</h2>
         <p class="section-subtitle">
           {notPlaced > 0 && `${notPlaced} entries finished outside top positions`}
         </p>
-        <div class="distribution-chart">
+        <div class={styles.distributionChart}>
           {Object.entries(distribution)
             .filter(([pos]) => pos !== 'NP')
             .map(([pos, count]) => {
               const height = (count / maxCount) * 100;
               return (
-                <div key={pos} class="distribution-bar">
+                <div key={pos} class={styles.distributionBar}>
                   <div 
-                    class="bar-fill" 
+                    class={styles.barFill} 
                     style={{ height: `${Math.max(height, count > 0 ? 8 : 3)}%` }}
                     data-count={count}
                   ></div>
-                  <span class="bar-label">{pos}</span>
+                  <span class={styles.barLabel}>{pos}</span>
                 </div>
               );
             })}
           {/* Not Placed bar */}
           {distribution['NP'] > 0 && (
-            <div class="distribution-bar distribution-bar-np">
+            <div class={styles.distributionBar}>
               <div 
-                class="bar-fill bar-fill-np" 
+                class={`${styles.barFill} ${styles.barFillNp}`} 
                 style={{ height: `${Math.max((distribution['NP'] / maxCount) * 100, 8)}%` }}
                 data-count={distribution['NP']}
               ></div>
-              <span class="bar-label">NP</span>
+              <span class={styles.barLabel}>NP</span>
             </div>
           )}
         </div>
@@ -166,8 +167,8 @@ export function ResultsView({
 
       {/* Character Stats */}
       {characterStats.length > 0 && (
-        <div class="character-section">
-          <div class="character-section-header">
+        <div class={styles.characterSection}>
+          <div class={styles.characterSectionHeader}>
             <div>
               <h2 class="section-title">Character Performance</h2>
               <p class="section-subtitle">Individual statistics for each uma</p>
@@ -179,7 +180,7 @@ export function ResultsView({
               {charactersExpanded ? 'Collapse All' : 'Expand All'}
             </button>
           </div>
-          <div class="character-grid">
+          <div class={styles.characterGrid}>
             {characterStats.map(char => {
               const isExpanded = charactersExpanded;
               const charMaxCount = Math.max(...Object.values(char.positions).filter((_, i) => i < 9), 1);
@@ -187,48 +188,48 @@ export function ResultsView({
               return (
                 <div 
                   key={char.name} 
-                  class={`character-card ${isExpanded ? 'expanded' : ''}`}
+                  class={`${styles.characterCard} ${isExpanded ? styles.expanded : ''}`}
                 >
-                  <div class="character-header">
-                    <div class="character-name">{char.name}</div>
-                    <div class="character-quick-stats">
-                      <span class="quick-stat quick-stat-races">{char.totalRaces} races</span>
-                      <span class="quick-stat quick-stat-wins">{char.winRate}% WR</span>
+                  <div class={styles.characterHeader}>
+                    <div class={styles.characterName}>{char.name}</div>
+                    <div class={styles.characterQuickStats}>
+                      <span class={`${styles.quickStat} ${styles.quickStatRaces}`}>{char.totalRaces} races</span>
+                      <span class={`${styles.quickStat} ${styles.quickStatWins}`}>{char.winRate}% WR</span>
                     </div>
                   </div>
                   
-                  <div class="character-summary">
-                    <div class="summary-item">
-                      <span class="summary-value">{char.wins}</span>
-                      <span class="summary-label">1st</span>
+                  <div class={styles.characterSummary}>
+                    <div class={styles.summaryItem}>
+                      <span class={styles.summaryValue}>{char.wins}</span>
+                      <span class={styles.summaryLabel}>1st</span>
                     </div>
-                    <div class="summary-item">
-                      <span class="summary-value">{char.podiums}</span>
-                      <span class="summary-label">Top 3</span>
+                    <div class={styles.summaryItem}>
+                      <span class={styles.summaryValue}>{char.podiums}</span>
+                      <span class={styles.summaryLabel}>Top 3</span>
                     </div>
-                    <div class="summary-item">
-                      <span class="summary-value">{char.podiumRate}%</span>
-                      <span class="summary-label">Podium</span>
+                    <div class={styles.summaryItem}>
+                      <span class={styles.summaryValue}>{char.podiumRate}%</span>
+                      <span class={styles.summaryLabel}>Podium</span>
                     </div>
                   </div>
 
                   {isExpanded && (
-                    <div class="character-details">
-                      <div class="character-distribution">
+                    <div class={styles.characterDetails}>
+                      <div class={styles.characterDistribution}>
                         {Object.entries(char.positions)
                           .filter(([pos]) => pos !== 'NP')
                           .map(([pos, count]) => {
                             const height = charMaxCount > 0 ? (count / charMaxCount) * 100 : 0;
                             return (
-                              <div key={pos} class="char-bar">
+                              <div key={pos} class={styles.charBar}>
                                 <div 
-                                  class="char-bar-fill" 
+                                  class={styles.charBarFill} 
                                   style={{ height: `${Math.max(height, count > 0 ? 15 : 5)}%` }}
                                   data-position={pos}
                                 >
-                                  {count > 0 && <span class="char-bar-count">{count}</span>}
+                                  {count > 0 && <span class={styles.charBarCount}>{count}</span>}
                                 </div>
-                                <span class="char-bar-label">{pos}</span>
+                                <span class={styles.charBarLabel}>{pos}</span>
                               </div>
                             );
                           })}
@@ -243,8 +244,8 @@ export function ResultsView({
       )}
 
       {/* Race History */}
-      <div class="history-section">
-        <div class="history-header">
+      <div class={styles.historySection}>
+        <div class={styles.historyHeader}>
           <h2 class="section-title">Race History</h2>
           {races.length > 0 && (
             <button class="btn btn-ghost" onClick={handleClearAll}>
@@ -254,7 +255,7 @@ export function ResultsView({
         </div>
 
         {races.length > 0 ? (
-          <div class="race-list">
+          <div class={styles.raceList}>
             {races.map(race => {
               const playerResults = race.playerResults || [];
               const notPlacedCount = race.playerUmasNotPlaced || 0;
@@ -263,15 +264,15 @@ export function ResultsView({
               return (
                 <div 
                   key={race.id} 
-                  class="race-item" 
+                  class={styles.raceItem} 
                   data-position={bestPosition}
                 >
-                  <div class="race-position-group">
+                  <div class={styles.racePositionGroup}>
                     {/* Show placed player umas */}
                     {playerResults.map((result, idx) => (
                       <div 
                         key={idx}
-                        class="race-position-badge"
+                        class={styles.racePositionBadge}
                         data-position={result.position}
                         title={`${result.characterName} - ${result.position}${getOrdinalSuffix(result.position)}`}
                       >
@@ -282,7 +283,7 @@ export function ResultsView({
                     {Array.from({ length: notPlacedCount }).map((_, idx) => (
                       <div 
                         key={`np-${idx}`}
-                        class="race-position-badge race-position-np"
+                        class={`${styles.racePositionBadge} ${styles.racePositionNp}`}
                         title="Did not place in visible positions"
                       >
                         —
@@ -290,25 +291,25 @@ export function ResultsView({
                     ))}
                     {/* If no player results at all, show placeholder */}
                     {playerResults.length === 0 && notPlacedCount === 0 && (
-                      <div class="race-position-badge race-position-na">?</div>
+                      <div class={`${styles.racePositionBadge} ${styles.racePositionNa}`}>?</div>
                     )}
                   </div>
-                  <div class="race-info">
-                    <span class="race-name">
+                  <div class={styles.raceInfo}>
+                    <span class={styles.raceName}>
                       {race.raceName}
-                      {race.venue && <span class="race-venue"> @ {race.venue}</span>}
+                      {race.venue && <span class={styles.raceVenue}> @ {race.venue}</span>}
                     </span>
-                    <span class="race-details">{getRaceDetails(race)}</span>
+                    <span class={styles.raceDetails}>{getRaceDetails(race)}</span>
                     {playerResults.length > 0 && (
-                      <span class="race-characters">
+                      <span class={styles.raceCharacters}>
                         {playerResults.map(r => r.characterName).join(', ')}
                         {notPlacedCount > 0 && ` (+${notPlacedCount} NP)`}
                       </span>
                     )}
                   </div>
-                  <span class="race-date">{formatDate(race.timestamp)}</span>
+                  <span class={styles.raceDate}>{formatDate(race.timestamp)}</span>
                   <button 
-                    class="race-delete" 
+                    class={styles.raceDelete} 
                     onClick={() => onDeleteRace(race.id)}
                     title="Delete"
                   >

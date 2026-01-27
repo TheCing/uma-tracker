@@ -1,0 +1,372 @@
+/* Onboarding View Component Styles */
+
+.onboardingView {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+  padding: var(--space-xl) 0;
+}
+
+.container {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-lg);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.titleLine {
+  display: block;
+}
+
+.titleLineSmall {
+  display: block;
+  font-size: 0.5em;
+  color: var(--cream);
+  opacity: 0.8;
+  letter-spacing: 0.1em;
+}
+
+.titleAccent {
+  color: var(--gold);
+  text-shadow: 0 4px 30px rgba(212, 164, 28, 0.5);
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  color: rgba(250, 248, 245, 0.75);
+  max-width: 450px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Features Grid */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  margin-bottom: var(--space-2xl);
+}
+
+.featureCard {
+  background: var(--surface-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all var(--transition-normal);
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.featureIcon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.featureTitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: var(--turf-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.featureDesc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Setup Section */
+.setup {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.setupHeader {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.setupTitle {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--turf-dark);
+  letter-spacing: 0.03em;
+  margin-bottom: var(--space-sm);
+}
+
+.setupDesc {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Free Tier Badge */
+.freeTierBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: linear-gradient(135deg, var(--gold-glow) 0%, rgba(212, 164, 28, 0.15) 100%);
+  border: 2px solid var(--gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.badgeIcon {
+  font-size: 2rem;
+}
+
+.badgeContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.badgeTitle {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--gold-dark);
+  letter-spacing: 0.03em;
+}
+
+.badgeDesc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* Setup Steps */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--cream);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.step:hover {
+  background: var(--cream-dark);
+}
+
+.stepNumber {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--turf);
+  color: white;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.stepTitle {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stepLink {
+  color: var(--turf);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.stepLink:hover {
+  text-decoration: underline;
+}
+
+.stepHint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Key Input Form */
+.keyForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.keyFormHeader {
+  text-align: center;
+}
+
+.keyInputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.keyInput {
+  width: 100%;
+  padding: var(--space-lg);
+  border: 2px solid var(--cream-dark);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+  transition: all var(--transition-fast);
+}
+
+.keyInput:focus {
+  outline: none;
+  border-color: var(--turf);
+  box-shadow: 0 0 0 4px rgba(45, 90, 69, 0.1);
+}
+
+.keyInput::placeholder {
+  color: var(--text-muted);
+  letter-spacing: normal;
+}
+
+.keyFormHint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--cream);
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.hintIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.keyFormActions {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.keyFormActions .btnSecondary {
+  flex: 1;
+}
+
+.keyFormActions .btnPrimary {
+  flex: 2;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: var(--space-xl);
+}
+
+.footerNote {
+  font-size: 0.85rem;
+  color: rgba(250, 248, 245, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .features {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+  
+  .featureCard {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: var(--space-md);
+    padding: var(--space-md);
+  }
+  
+  .featureIcon {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+  
+  .setup {
+    padding: var(--space-xl);
+  }
+  
+  .freeTierBadge {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .keyFormActions {
+    flex-direction: column;
+  }
+  
+  .keyFormActions .btnPrimary {
+    flex: 1;
+    order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .icon {
+    font-size: 3rem;
+  }
+  
+  .setup {
+    padding: var(--space-lg);
+  }
+  
+  .step {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .stepNumber {
+    margin: 0 auto;
+  }
+}
